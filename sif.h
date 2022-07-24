@@ -412,7 +412,7 @@ size_t SIF_compressSlice(const SIF_content_descriptor_t* const slice, void* cons
             size_t offset = (size_t)SIF_pixelHash(pixel);
             if (use_contextual_dict)
               offset |= ((prev_pixel.rgba.r + prev_pixel.rgba.g) >> (9u - SIF_DICT_CONTEXT_BIT_LENGTH)) << SIF_REDUCED_OFFSET_BIT_LENGTH;
-            SIF_ASSERT(offset < sizeof(dict));
+            SIF_ASSERT(offset < sizeof(dict) / sizeof(SIF_pixel_t));
             if (dict[offset].value == pixel.value)
               dst_[position++] = SIF_opcode_reduced_offset | (offset & (SIF_DICT_ITEMS_PER_BUCKET - 1u));
             else {
